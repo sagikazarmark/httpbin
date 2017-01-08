@@ -1,0 +1,12 @@
+hash: f937acc1e3506ffb840a085f48b28501cf7e1837c51d04c7fb6d1c700418a5e1
+updated: 2017-01-05T16:41:28.260252412+01:00
+imports:
+- name: github.com/elazarl/go-bindata-assetfs
+  version: 9a6736ed45b44bf3835afeebb3034b57ed329f3e
+- name: github.com/julienschmidt/httprouter
+  version: 8c199fb6259ffc1af525cc3ad52ee60ba8359669
+- name: github.com/sagikazarmark/bingo
+  version: 3b1af93f7b1d7306cfe001a1f5d20cdc4a594360
+- name: github.com/spf13/pflag
+  version: 25f8b5b07aece3207895bf19f7ab517eb3b22a40
+testImports: []

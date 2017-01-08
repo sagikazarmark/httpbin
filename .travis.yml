@@ -1,0 +1,40 @@
+language: go
+
+os:
+    - linux
+    - osx
+
+sudo: false
+
+go:
+    - 1.7
+    - tip
+
+env:
+    matrix:
+        - ARCH=386
+        - ARCH=amd64
+
+before_install:
+    - mkdir -p $HOME/bin
+    - curl -L https://git.io/vMZjG | sh -s $HOME/bin
+install: make install
+before_script:
+    # Necessary because matrix env var doesn't work. See https://travis-ci.org/sagikazarmark/bingo-example/jobs/189758517
+    - export GOARCH=$ARCH
+    - export BINARY_NAME=`basename $TRAVIS_REPO_SLUG`_`go env GOOS`_`go env GOARCH`
+script:
+    - make generate
+    - make VERBOSE=true test
+    - make BINARY=$BINARY_NAME build
+
+deploy:
+    provider: releases
+    api_key:
+        secure: PTxBCYKHXagqTuWRfz3pJL/Y7hcrYufqnz/gCutwTwfpTj/7HsSwJClwZlnkR91JYI9byI+eBDVyHvouCnCXr3flvIRy0tnlnzZMmjH5qpXilUgsCx5+ib2JdvoTzsW7KvQI45LrBF8MHNWU+6Mw3CpOrVls/LcQmDOJwygT7lZM1oWgoF4Q6/UZHq+w1b1pwLyHuu07p7Q9RK2LcMACFrQU6JUiiqk/q3AuWS8BpgI6RQp0wyJzzn8QWV2gsInhf7CRTtFxa236B59HvOuLQLq4tnlCIf0Y1pukFvZClbYox5IbM0/Fns3nel1oWNTk9yAtFmMe3L4euH+QYqhS+o58yt9vXyzB/yXFpCV9W23umLOJLyRhZ4QiQ302vWN+6BYG8L8xd54X0hL3zSDecWAgedNDwht+7476nxjyyk36XmbNIzNBAPh/eXeztGp2Aln89fF4kSIJgT/AoTE6FMdhqIdjepX15GFqOM17XCakdFEqGYBwqHXLDWBc0lEzjfvUSVi/VuzdyXz6DXejZxfxzjd/wPvN0w7/vLZFj8jBJkBbw1HYl0Tchvmm0GFt6klEKh5yEw3lpMqX8GuTIb8JpeFpYZ7LfA8p47mKv6vR6Br1DlZai3F27bOimMnO5SeiMdbhVfMc5lFHgJo8edWmtL/oP25M6MBY5j/Zd9c=
+    file: $BINARY_NAME
+    skip_cleanup: true
+    on:
+        repo: sagikazarmark/httpbin
+        tags: true
+        go: 1.7

@@ -1,0 +1,6 @@
+package: github.com/sagikazarmark/bingo-example
+import:
+- package: github.com/julienschmidt/httprouter
+  version: ^1.1.0
+- package: github.com/sagikazarmark/bingo
+- package: github.com/spf13/pflag
