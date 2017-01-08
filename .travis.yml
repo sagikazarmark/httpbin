@@ -16,6 +16,7 @@ env:
         - ARCH=amd64
 
 before_install:
+    - go get -u github.com/jteeuwen/go-bindata/...
     - mkdir -p $HOME/bin
     - curl -L https://git.io/vMZjG | sh -s $HOME/bin
 install: make install
