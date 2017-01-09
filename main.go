@@ -25,6 +25,7 @@ func main() {
 	endpoints.Encoding(bin)
 	endpoints.Response(bin)
 	endpoints.Redirect(bin)
+	endpoints.Cookie(bin)
 
 	router := bingo.NewHandler(bin)
 
